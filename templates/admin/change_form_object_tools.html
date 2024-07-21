@@ -1,0 +1,45 @@
+{% load i18n admin_urls static %}
+<style>
+   
+    input[type=checkbox] {
+        background-color: #7F7F7F;
+    
+    }
+    .form-check-input:checked[type=checkbox] {
+        background-image: linear-gradient(310deg, #ea0606 0%, #ea0606 100%);
+    }
+    
+    
+    .inline-deletelink { background-color: grey;
+    }
+    a{
+        font-size:13px;
+        color: #7F7F7F;
+        font-weight:700;
+    }
+    td{
+        font-size:13px;
+    }
+    th span{
+        font-size:15px;
+        font-weight:900;
+    }
+   select{
+    padding-top:4px;
+   }
+       
+    </style>
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+{% endblock %}
+{% block object-tools-items %}
+    {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+    <a href="{% add_preserved_filters history_url %}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
+        <i class="fa fa-book"></i> &nbsp; {% trans "History" %}
+    </a>
+
+    {% if has_absolute_url %}
+        <a href="{{ absolute_url }}"
+           class="btn btn-outline-gray-600 d-inline-flex align-items-center">{% trans "View on site" %}</a>
+    {% endif %}
+{% endblock %}

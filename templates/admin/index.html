@@ -1,0 +1,1259 @@
+{% extends "layouts/base.html" %}
+{% load i18n static %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+    <div class="container-fluid py-4">
+
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    
+
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Sales</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      {{ app_view1.total_sales }}
+                      <span class="text-success text-sm font-weight-bolder">DA</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Purchase Summary</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      {{ app_view1.total_commande }}
+                    
+                      <span class="text-success text-sm font-weight-bolder">DA</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      {{app_view1.new_clients_count}}
+                      
+                      <span class="text-success text-sm font-weight-bolder">{{app_view1.new_clients_percentage}}%</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Purchases</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      10 000 
+                      <span class="text-success text-sm font-weight-bolder">DA</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="row mt-4">
+        <div class="col-lg-5 mb-lg-0 mb-4">
+          <div class="card z-index-2">
+            <div class="card-body p-3">
+              <h6 class="ms-2 mt-0 mb-2"> Value of Purchases </h6>
+              <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
+                <div class="chart">
+                  <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+                </div>
+              </div>
+              <h6 class="ms-2 mt-4 mb-0"> Best suppliers </h6>
+              <p class="text-sm ms-2">
+                {% now "Y" as current_year %}
+                {{ current_year }}
+              </p>
+              <div class="container border-radius-lg">
+                <div class="row">
+                  {% for suppliers in app_view1.top_4_suppliers %}
+                  <div class="col-3 py-3 ps-0">
+                    <div class="d-flex mb-2">
+                      <div class="icon icon-shape icon-xxs shadow border-radius-sm bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fas fa-user" style="font-size: 10px; opacity: 1;padding-top:7px;" aria-hidden="true"></i>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(154.000000, 300.000000)">
+                                  <path class="color-background" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z" opacity="0.603585379"></path>
+                                  <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <p class="text-xs mt-1 mb-0 font-weight-bold"style="width:55px"> {{suppliers.supplier_name}}</p>
+                    </div>
+                    <h4 class="font-weight-bolder"style="font-size:1rem">{{suppliers.total_value}} DA</h4>
+                    <div class="progress w-75">
+                      {% if forloop.counter == 1 %}
+                      <div class="progress-bar bg-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% elif forloop.counter == 2 %}
+                      <div class="progress-bar bg-info w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% elif forloop.counter == 3 %}
+                      <div class="progress-bar bg-warning  w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% elif forloop.counter == 4 %}
+                      <div class="progress-bar bg-warning  w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% endif %}                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+          
+          
+        
+        <div class="col-lg-7"> <div class="card z-index-2">
+          <ul class="nav nav-tabs" id="myTabs">
+              <li class="nav-item">
+                  <a class="nav-link active" id="graph1-tab" data-bs-toggle="tab" href="#graph1"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Magasin Principal</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="graph2-tab" data-bs-toggle="tab" href="#graph2"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Centre 1</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="graph3-tab" data-bs-toggle="tab" href="#graph3"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Centre 2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="graph4-tab" data-bs-toggle="tab" href="#graph4"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Centre 3</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+              <div class="tab-pane fade show active" id="graph1">
+                  <!-- Your Graph 1 HTML and script here -->
+                  <div class="card z-index-2">
+                    <div class="card-header pb-0">
+                      <h6>Principal Magasin Sales overview</h6>
+                      
+                    
+                    </div>
+                    <div class="card-body p-3">
+                      <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                      </div>
+                      
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="graph2">
+                  <!-- Your Graph 2 HTML and script here -->
+                  <div class="card z-index-2">
+                    <div class="card-header pb-0">
+                      <h6>Center 1 Sales overview</h6>
+                      
+                      
+                    </div>
+                    <div class="card-body p-3">
+                      <div class="chart">
+                        <canvas id="chart-line2" class="chart-canvas" height="300"></canvas>
+                      </div>
+                      
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="graph3">
+                  <!-- Your Graph 3 HTML and script here -->
+                  <div class="card z-index-2">
+                    <div class="card-header pb-0">
+                      <h6>Center 2 Sales overview</h6>
+                      
+                      
+                    </div>
+                    <div class="card-body p-3">
+                      <div class="chart">
+                        <canvas id="chart-line3" class="chart-canvas" height="300"></canvas>
+                      </div>
+                      
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="graph4">
+                <!-- Your Graph 3 HTML and script here -->
+                <div class="card z-index-2">
+                  <div class="card-header pb-0">
+                    <h6>Center 3 Sales overview</h6>
+                    
+                    
+                  </div>
+                  <div class="card-body p-3">
+                    <div class="chart">
+                      <canvas id="chart-line4" class="chart-canvas" height="300"></canvas>
+                    </div>
+                    
+                  </div>
+                </div>
+            </div>
+          </div>
+    </div>  </div>
+         {% comment %} <div class="col-lg-7">
+          <div class="card z-index-2">
+            <div class="card-header pb-0">
+              <h6>Sales overview</h6>
+              
+              <p class="text-sm">
+                <i class="fa fa-arrow-up text-success"></i>
+                <span class="font-weight-bold">4% more</span> in 2021
+              </p>
+            </div>
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+              </div>
+              
+            </div>
+          </div>
+        </div>  {% endcomment %}
+      </div>
+
+<!-- Your existing HTML code -->
+<div class="row my-4">
+  <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+    <div class="card">
+      
+      <div class="card-header pb-0">
+        
+        <!-- Add the nav-tabs structure here -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="tab1" data-toggle="tab" href="#products1"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Stock</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tab2" data-toggle="tab" href="#products2"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Best customers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tab3" data-toggle="tab" href="#products3"style="color: #7F7F7F;font-weight:600;font-size: 0.875rem !important;line-height: 1.5;text-transform: capitalize !important;">Best-seller</a>
+          </li>
+          {% comment %} <li class="nav-item">
+            <a class="nav-link" id="tab4" data-toggle="tab" href="#products4"style="font-size: 1rem;
+            line-height: 1.625;font-weight: 600;">Tab 4</a>
+          </li> {% endcomment %}
+        </ul>
+        
+      </div>
+      <div class="card-body px-0 pb-2">
+        <!-- Add the tab-content structure here -->
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="products1">
+            <!-- Table content for Tab 1 -->
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0"style="padding-right:20px">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Type</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity in stock</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for product in app_view1.products %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          {% comment %} <img src={{product.designation}} class="avatar avatar-sm me-3" alt="xd"> {% endcomment %}
+
+                          <img src="/{{  product.image }}" class="avatar avatar-sm me-3" alt="xd">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{product.designation }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{product.get_type_display }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> {{ product.quantity_in_stock }} </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-75 mx-auto">
+                        
+                        {% if product.get_pourcentage == 100 %}
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-success w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                      </div>
+                        {% endif %}
+                        {% if product.get_pourcentage < 100 and  product.get_pourcentage >= 50  %}
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                      </div>
+                        {% endif %}
+                        {% if product.get_pourcentage < 50 %}
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-danger w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                      </div>
+                        {% endif %}
+                      
+
+                       
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="products2">
+            <div class="table-responsive">
+              <div style="display: flex; align-items: center;">
+                <h6 id="bestClientsHeading" style="margin-right: auto; margin-left: 15px;">Best-Customers {{ current_year }}</h6>
+                <div style="display:flex; justify-content:right">
+                    <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false" style="right: 0; padding-right: 30px;">
+                        <i class="fa fa-ellipsis-v text-secondary"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="right: 0; padding-right: 15px;" aria-labelledby="dropdownTable">
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;" onclick="filterClients('{{ current_year }}')">{{ current_year }}</a></li>
+                        {% for month in app_view1.months %}
+                            <li><a class="dropdown-item border-radius-md" href="javascript:;" onclick="filterClients('{{ month }}')">{{ month }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+              
+                
+              <table class="table align-items-center mb-0"style="padding-right:20px">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Client Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Adress</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount spent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for client in app_view1.top_clients %}
+                  <tr data-month="{{ client.month }}">
+
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{client.client__name }}</h6>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </td>
+                    
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{client.client__address }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{client.client__phone  }}</h6>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{client.total_amount  }} DA</h6>
+                      </div>
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="products3">
+            <div class="table-responsive">
+              <div style="display: flex; align-items: center;">
+                <h6 id="bestClientsHeading" style="margin-right: auto; margin-left: 15px;">Best-seller {{ current_year }}</h6>
+                <div style="display:flex; justify-content:right">
+                    <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false" style="right: 0; padding-right: 30px;">
+                        <i class="fa fa-ellipsis-v text-secondary"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="right: 0; padding-right: 15px;" aria-labelledby="dropdownTable">
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;" onclick="filterClients('{{ current_year }}')">{{ current_year }}</a></li>
+                        {% for month in app_view1.months %}
+                            <li><a class="dropdown-item border-radius-md" href="javascript:;" onclick="filterClients('{{ month }}')">{{ month }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+              
+                
+              <table class="table align-items-center mb-0"style="padding-right:20px">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qte Sold</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount spent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for product in app_view1.top_product %}
+                  <tr >
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          {% comment %} <img src={{product.designation}} class="avatar avatar-sm me-3" alt="xd"> {% endcomment %}
+
+                          <img src="/{{  product.product__image }}" class="avatar avatar-sm me-3" alt="xd">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{product.product__designation }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    
+                    
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{product.quantity_sold  }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{product.total}} DA</h6>
+                      </div>
+                    </td>
+                    
+                    
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="products4">
+            <!-- Table content for Tab 4 -->
+            <!-- ... Your existing table structure ... -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+          <div class="card h-100">
+            <div class="card-header pb-0">
+              <h6>{% trans 'Recent actions' %}</h6>
+              <p class="text-sm">
+                <i class="fa fa-arrow-down text-success" aria-hidden="true"></i>
+                <span class="font-weight-bold">{% trans 'My actions' %}</span>
+              </p>
+            </div>
+            <div class="card-body p-3">
+              <div class="timeline timeline-one-side">
+                  {% load log %}
+                  {% get_admin_log 10 as admin_log for_user user %}
+                  {% if admin_log %}
+                      {% for entry in admin_log %}
+                          <div class="timeline-block mb-3">
+                            <span class="timeline-step">
+                                {% if entry.is_addition %}
+                                      <span class="fa fa-plus-circle text-success text-gradient"></span>
+                                  {% endif %}
+                                  {% if entry.is_change %}
+                                      <span class="fa fa-edit text-warning text-gradient"></span>
+                                  {% endif %}
+                                  {% if entry.is_deletion %}
+                                      <span class="fa fa-trash text-danger text-gradient"></span>
+                                  {% endif %}
+                            </span>
+                            <div class="timeline-content">
+                              <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                {% if entry.content_type %}
+                                      {% filter capfirst %}{{ entry.content_type }}{% endfilter %}
+                                  {% else %}
+                                      {% trans 'Unknown content' %}
+                                  {% endif %}
+                              </h6>
+                              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ entry.object_repr }}</p>
+                            </div>
+                          </div>
+                      {% endfor %}
+                  {% else %}
+                      <p>{% trans 'None available' %}</p>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+      {% comment %} <div class="row my-4">
+        <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 col-7">
+                  <h6>Products</h6>
+                </div>
+                <div class="col-lg-6 col-5 my-auto text-end">
+                  <div class="dropdown float-lg-end pe-4">
+                    <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-ellipsis-v text-secondary"></i>
+                    </a>
+                    <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                    </ul>
+                  </div>
+                </div> 
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Designation</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Type</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity in stock</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for product in app_view1.products %}
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            <img src={{product.designation}} class="avatar avatar-sm me-3" alt="xd">
+
+                            <img src="/{{  product.image }}" class="avatar avatar-sm me-3" alt="xd">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{product.designation }}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{product.get_type_display }}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <span class="text-xs font-weight-bold"> {{ product.quantity_in_stock }} </span>
+                      </td>
+                      <td class="align-middle">
+                        <div class="progress-wrapper w-75 mx-auto">
+                          
+                          {% if product.get_pourcentage == 100 %}
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-success w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                        </div>
+                          {% endif %}
+                          {% if product.get_pourcentage < 100 and  product.get_pourcentage >= 50  %}
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-info w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                        </div>
+                          {% endif %}
+                          {% if product.get_pourcentage < 50 %}
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-danger w-{{ product.get_pourcentage }}" role="progressbar" aria-valuenow="{{ product.quantity_in_stock }}" aria-valuemin="0" aria-valuemax="10000"></div>
+                        </div>
+                          {% endif %}
+                        
+  
+                         
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100">
+            <div class="card-header pb-0">
+              <h6>{% trans 'Recent actions' %}</h6>
+              <p class="text-sm">
+                <i class="fa fa-arrow-down text-success" aria-hidden="true"></i>
+                <span class="font-weight-bold">{% trans 'My actions' %}</span>
+              </p>
+            </div>
+            <div class="card-body p-3">
+              <div class="timeline timeline-one-side">
+                  {% load log %}
+                  {% get_admin_log 10 as admin_log for_user user %}
+                  {% if admin_log %}
+                      {% for entry in admin_log %}
+                          <div class="timeline-block mb-3">
+                            <span class="timeline-step">
+                                {% if entry.is_addition %}
+                                      <span class="fa fa-plus-circle text-success text-gradient"></span>
+                                  {% endif %}
+                                  {% if entry.is_change %}
+                                      <span class="fa fa-edit text-warning text-gradient"></span>
+                                  {% endif %}
+                                  {% if entry.is_deletion %}
+                                      <span class="fa fa-trash text-danger text-gradient"></span>
+                                  {% endif %}
+                            </span>
+                            <div class="timeline-content">
+                              <h6 class="text-dark text-sm font-weight-bold mb-0">
+                                {% if entry.content_type %}
+                                      {% filter capfirst %}{{ entry.content_type }}{% endfilter %}
+                                  {% else %}
+                                      {% trans 'Unknown content' %}
+                                  {% endif %}
+                              </h6>
+                              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ entry.object_repr }}</p>
+                            </div>
+                          </div>
+                      {% endfor %}
+                  {% else %}
+                      <p>{% trans 'None available' %}</p>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> {% endcomment %}
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block scripts %}
+<script>
+  
+    var topClientsData = [
+    {% for entry in app_view1.top_client_instances %}
+            {
+                'month': {{ entry.month }},
+                'top_client': {
+                    'client__name': '{{ entry.top_client.client__name|escapejs }}',
+                    'client__address': '{{ entry.top_client.client__address|escapejs }}',
+                    'client__phone': '{{ entry.top_client.client__phone|escapejs }}',
+                    'total_quantity': {{ entry.top_client.total_quantity|default:0|floatformat }}
+                }
+            },
+            {% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    console.log(topClientsData)
+  function filterClients(month) {
+    // Get all client rows
+    var clientRows = document.querySelectorAll('.client-row');
+
+    // Hide all client rows
+    clientRows.forEach(function(row) {
+        row.style.display = 'none';
+    });
+
+    // Show only the client rows for the selected month
+    var selectedMonthClients = document.querySelectorAll('.client-row[data-month="' + month + '"]');
+    selectedMonthClients.forEach(function(row) {
+        row.style.display = '';
+    });
+
+    // Update the heading text to include the selected month
+    document.getElementById('bestClientsHeading').textContent = 'Best Clients ' + month;
+}
+  // Add this script to the end of your body section
+  {% comment %} $(document).ready(function(){
+    // Show the corresponding tab content when a tab is clicked
+    $('#tab1').click(function(){
+      $('.tab-pane').removeClass('show active');
+      $('#products1').addClass('show active');
+    });
+    $('#tab2').click(function(){
+      $('.tab-pane').removeClass('show active');
+      $('#products2').addClass('show active');
+    });
+    $('#tab3').click(function(){
+      $('.tab-pane').removeClass('show active');
+      $('#products3').addClass('show active');
+    });
+    $('#tab4').click(function(){
+      $('.tab-pane').removeClass('show active');
+      $('#products4').addClass('show active');
+    });
+  }); {% endcomment %}
+</script>
+
+
+  <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+  <script>
+    
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+    var monthsData = [
+    {% for month, value in app_view1.get_total_achat_by_year.items  %}
+        {{ value }},
+    {% endfor %}
+];
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: "Sales",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "#fff",
+          data: monthsData,
+          maxBarThickness: 6
+        }, ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 500,
+              beginAtZero: true,
+              padding: 15,
+              font: {
+                size: 14,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+              color: "#fff"
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false
+            },
+            ticks: {
+              display: false
+            },
+          },
+        },
+      },
+    });
+
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+    var monthsData = [0,
+    {% for month, value in app_view1.yearly_totals_2023.items  %}
+        {{ value }},
+    {% endfor %}
+];
+    new Chart(ctx2, {
+      type: "line",
+      data: {
+        labels: ["","Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Sales",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data: monthsData,
+            maxBarThickness: 6
+
+          },
+          {% comment %} {
+            label: "Profit",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#575f9a",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [0,50, 40, 300,30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          }, {% endcomment %}
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+
+    var ctx3 = document.getElementById("chart-line2").getContext("2d");
+
+    var gradientStroke1 = ctx3.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx3.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+    var monthsData = [0,
+    {% for month, value in app_view1.yearly_totals_center1.items  %}
+        {{ value }},
+    {% endfor %}
+];
+    new Chart(ctx3, {
+      type: "line",
+      data: {
+        labels: ["","Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Sales",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data:monthsData,
+            maxBarThickness: 6
+
+          },
+          {% comment %} {
+            label: "Profit",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#575f9a",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [0,50, 40, 300,30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          }, {% endcomment %}
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+    var ctx4 = document.getElementById("chart-line3").getContext("2d");
+
+    var gradientStroke1 = ctx4.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx4.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+    var monthsData = [0,
+    {% for month, value in app_view1.yearly_totals_center2.items  %}
+        {{ value }},
+    {% endfor %}
+];
+    new Chart(ctx4, {
+      type: "line",
+      data: {
+        labels: ["","Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Sales",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data: monthsData,
+            maxBarThickness: 6
+
+          },
+          {% comment %} {
+            label: "Profit",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#575f9a",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [0,50, 40, 300,30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          }, {% endcomment %}
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+    var ctx5 = document.getElementById("chart-line4").getContext("2d");
+
+    var gradientStroke1 = ctx5.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx5.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+    var monthsData = [0,
+    {% for month, value in app_view1.yearly_totals_center3.items  %}
+        {{ value }},
+    {% endfor %}
+];
+    new Chart(ctx5, {
+      type: "line",
+      data: {
+        labels: ["","Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Sales",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data:monthsData,
+            maxBarThickness: 6
+
+          },
+          {% comment %} {
+            label: "Profit",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#575f9a",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [0,50, 40, 300,30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          }, {% endcomment %}
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
+
+{% endblock scripts %}

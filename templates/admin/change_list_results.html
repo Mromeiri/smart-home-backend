@@ -1,0 +1,116 @@
+{% load i18n static admin_soft static %}
+<style>
+    a{
+        font-size:13px;
+        color: #7F7F7F;
+        font-weight:700;
+    }
+    td{
+        font-size:13px;
+    }
+    th span{
+        font-size:15px;
+        font-weight:900;
+    }
+   select{
+    padding-top:4px;
+   }
+   .delete{
+    background-color:red;
+  }
+  {% comment %} .form-check-label, .form-check-input[type=checkbox] {
+    background-color: red;
+} {% endcomment %}
+</style>
+{% if result_hidden_fields %}
+    <div class="hiddenfields">{# DIV for HTML validation #}
+        {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
+{% endif %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}">
+{% endblock %}
+
+{% if results %}
+
+    <table class="table table-hover" style="padding:2px;margin:0px" >
+      
+
+       
+       
+        <tbody>
+            <table>
+                <thead style="padding:2px">
+                    <tr style="padding:2px">
+                        {% for header in result_headers %}
+                 <th style="padding:2px" {{ header.class_attrib }}>
+                    {% if header.sortable %}
+                {% if header.sort_priority > 0 %}
+                    <h5 class="sortable-header" style="display:inline;font-weight: 700; font-size: 10px; cursor: pointer;" onclick="window.location='{{ header.url_remove }}';" title="{% trans "Remove from sorting" %}">
+                        <span class="fa fa-arrows-alt"></span>
+                    </h5>
+                    {% if num_sorted_fields > 1 %}
+                        <span class="fa fa-arrows-v" title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>&nbsp;
+                    {% endif %}
+                    <h5 class="sortable-header" style="display:inline;font-weight: 700; font-size: 5px; cursor: pointer;" onclick="window.location='{{ header.url_toggle }}';" title="{% trans "Toggle sorting" %}">
+                        <span class="fa {% if header.ascending %}fa-angle-up{% else %}fa-angle-down{% endif %}"></span>
+                    </h5>
+                {% endif %}
+            {% endif %}
+            
+            
+                    {% if header.sortable %}
+                    {% comment %} <h5 class="" style="font-weight:700;font-size:15px;cursor: pointer;"  onclick="window.location='{{ header.url_primary }}">
+                        <span class="nav-link-text ms-1">{{ header.text|capfirst }}</</span>
+            
+                      </h5> {% endcomment %}
+                        <h5 class="header-clickable" onclick="window.location='{{ header.url_primary }}';" style="display:inline;font-weight:700;font-size:15px;cursor:pointer;">
+                            <span class="nav-link-text ms-1">{{ header.text|capfirst }}</span>
+                        </h5>
+                    {% else %}
+                        {% if header.class_attrib == ' class="action-checkbox-column"' %}
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    {{ header.text|capfirst }}
+                                </label>
+                            </div>
+                        {% else %}
+                            <span>{{ header.text|capfirst }}</span>
+                        {% endif %}
+                    {% endif %}
+                </th>
+            {% endfor %}
+            
+                    </tr>
+                    </thead>
+                {% for result in results %}
+                    <tr>
+                        {% for cell in result %}
+                        {% if 'checkbox' in cell %}
+                        <td style="padding:0px">
+                            <div class="form-check">
+                        
+                                <label class="form-check-label">
+                                    {{ cell|checkbox|safe }}
+                                    <span class="form-check-sign"><span class="check"></span></span>
+                                </label>
+                            </div>
+                        </td>
+                   
+                {% else %}
+                    {{ cell|safe }}
+                {% endif %}
+                       
+                            
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            
+            
+        
+        </tbody>
+    </table>
+{% endif %}
+
