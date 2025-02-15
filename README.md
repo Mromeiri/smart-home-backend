@@ -123,3 +123,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 * **Celery & Redis** for background ML retraining
 
 🚀 Smart IoT Predictions – Adaptive ML for Real-Time IoT Insights!
+
+---
+
+<div align="center">
+  Made with Omeiri Abdellah & Linda Benhocine
+</div>
